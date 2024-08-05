@@ -1,0 +1,62 @@
+public static string name, sex, contact, address, nok, password, email, idno, refer, account_type, deposit,acnumber, pin ,type="";
+
+
+ name = textBox1.Text;
+            contact = textBox8.Text;
+            address = comboBox1.Text;
+            password = textBox4.Text;
+            email = textBox3.Text;
+            idno = textBox14.Text;
+            refer = textBox6.Text;
+            account_type = comboBox2.Text;
+            deposit = textBox10.Text;
+            pin = textBox2.Text;
+            type = comboBox3.Text;
+            
+
+            if (checkBox4.Checked == true)
+            {
+                checkBox3.Checked = false;
+                sex = "FEMALE";
+             
+            }
+
+            if (checkBox3.Checked == true)
+            {
+                checkBox4.Checked = false;
+                sex = "MALE";
+              
+            }
+             byte[] images = null;
+                FileStream stream = new FileStream(pictureBox1.ImageLocation, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(stream);
+                images = br.ReadBytes((int)stream.Length);
+
+            byte[] imagess = null;
+                FileStream streamm = new FileStream(pictureBox2.ImageLocation, FileMode.Open, FileAccess.Read);
+                BinaryReader brr = new BinaryReader(streamm);
+                imagess = brr.ReadBytes((int)stream.Length);
+
+                Random rnd = new Random();
+                int num = rnd.Next(100000012, 199999999);
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("insert into [dbo].[clients] (full_name,sex,contact,address,account_type,id_cardnumber,email,password,referal,next_of_kind,account_number,first_deposit,pin,picture,id_cardpicture,desp) values ('" + name + "','" + sex + "','" + contact + "','" + address + "','" + account_type + "','" + idno + "','" + email + "','" + password + "','" + refer + "','" + nok + "','" + num + "','" + deposit + "','" + pin + "',@images,@imagess,'"+type+"') ", con);
+            cmd.Parameters.Add(new SqlParameter("@images", images));
+            cmd.Parameters.Add(new SqlParameter("@imagess", imagess));
+
+
+            cmd.ExecuteNonQuery();
+
+
+           
+           
+
+            MessageBox.Show("insert success");
+        
+
+            // cmd.Parameters.Add(new SqlParameter("@images", imagess));
+
+           
+
+           
